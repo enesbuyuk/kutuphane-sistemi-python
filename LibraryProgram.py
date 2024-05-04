@@ -2,44 +2,18 @@ kütüphaneKayıt = {}
 kitapKayıt = {}
 
 
-def main():
-    print("Kütüphane Programına Hoşgeldiniz  ")
-    giriş = input("bana ne yapmak istediğini söyle!")
-    print("""
-        1. kayıt ol
-        2. giriş yap
-        3. admin mod
-    
-            """)
-    if giriş == 1:
-        kayıt()
-
-    elif giriş == 2:
-       if kullanıcıGirişi():
-           print("hoşgeldiniz.")
-
-       else:
-           print("bu isim kayıtlı değil!")
-
-
-
-    elif "adminMod" in giriş:
-        şifre = "adsg4v3t34ty35"
-        deneme = input("lütfen şifre giriniz: ")
-        if deneme == şifre:
-            print("teşekkürler")
-            adminMode()
-        else:
-            print("yanlış şifre!")
-
-
-
 def adminMod():
     print("admin mod'a hoşgeldiniz")
     adminInput = input("""yapmak istediğiniz sayıya basın:
                        1: kitap listesini göster
                        2: kullanıcı paneline gir
                        """)
+
+    if adminInput == "1":
+        kitapListeGöster()
+
+    elif adminInput == "2":
+        print("Burayı Enes yazacak")
 
 
 def kitapListeGöster():
@@ -53,30 +27,34 @@ def kitapListeGöster():
     if fonkGirdi == 1:
         kitapKayıtEt()
     elif fonkGirdi == 2:
-        kitapKaydıSil()
+        kitapKaydıSil('KütüphaneKitapları.txt')
 
 
 def kitapKayıtEt():
-    id = int(input("id giriniz: "))
+    id = input("id giriniz: ")
     isim = input("isim giriniz: ")
-    yayınYılı = int(input("yayın yılı giriniz: "))
+    yayınYılı = input("yayın yılı giriniz: ")
     yazar = input("yazar giriniz: ")
     kitapKayıt[isim] = id, yayınYılı, yazar
 
+    def dosyayaYazdır(sözlük, dosya):
+        with open(dosya, 'a') as doysa:
+            for key, value in sözlük.items():
+                doysa.write(f'{key}: {", ".join(value)}\n')
+
+    dosyayaYazdır(kitapKayıt, 'KütüphaneKitapları.txt')
 
 
-def kitapKaydıSil():
+def kitapKaydıSil(dosya):
     fonkGirdi = input("silmek istediğiniz kitabın adını giriniz: ")
-    del kitapKayıt[fonkGirdi]
 
+    with open(dosya, 'r') as doysa:
+        satırlar = doysa.readlines()
 
-
-
-
-
-
-
-
+    with open(dosya, 'w') as doysa:
+        for satır in satırlar:
+            if fonkGirdi not in satır:
+                doysa.write(satır)
 
 def kullanıcıGirişi():
     isimInput = input("isminizi giriniz: ")
@@ -98,3 +76,34 @@ def kayıtGir():
     eposta = input("eposta giriniz: ")
     kayıt(isim, yas, eposta)
 
+
+def main():
+    print("Kütüphane Programına Hoşgeldiniz  ")
+    print("""
+        1. kayıt ol
+        2. giriş yap
+        3. admin mod
+    
+            """)
+    giriş = int(input("bana ne yapmak istediğini söyle!"))
+
+    if giriş == 1:
+        kayıt()
+
+    elif giriş == 2:
+       if kullanıcıGirişi():
+           print("hoşgeldiniz.")
+
+       else:
+           print("bu isim kayıtlı değil!")
+
+    elif giriş == 3:
+        şifre = "admineSor"
+        deneme = input("lütfen şifre giriniz: ")
+        if deneme == şifre:
+            print("teşekkürler")
+            adminMod()
+        else:
+            print("yanlış şifre!")
+
+main()
