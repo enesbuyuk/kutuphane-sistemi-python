@@ -10,14 +10,15 @@ def adminMod():
                        """)
 
     if adminInput == "1":
-        kitapListeGöster()
+        kitapListeGöster("KütüphaneKitapları.txt")
 
     elif adminInput == "2":
         print("Burayı Enes yazacak")
 
 
-def kitapListeGöster():
-    print(kitapKayıt)
+def kitapListeGöster(dosya):
+    with open(dosya, "r") as doysa:
+        print(doysa.read())
 
     print("""ne yapmak istiyorsunuz?:
             1. kütüphaneye kitap kayıt ettir
