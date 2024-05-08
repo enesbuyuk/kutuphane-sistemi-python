@@ -1,0 +1,1 @@
+{'id': '1715112936', 'isim': 'Anna Karenina', 'yas':12,'eposta': 'enes.boyuk@kartaca.com', 'sifre':'1'}

@@ -1,0 +1,2 @@
+{'id': '1715112936', 'isim': 'Anna Karenina', 'yil': 2000, 'yazar': 'dosto', 'odunc': 0, 'kalanSure':12}
+{'id': '1715112978', 'isim': 's', 'yil': 1, 'yazar': '1', 'odunc': 0, 'kalanSure': 0}
