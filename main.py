@@ -53,19 +53,6 @@ kütüphaneKayıt = {}
 OBJ_admin_paneli = AdminPaneli(veritabani["kutuphane"],veritabani["kullanici"])
 OBJ_kullanici = KullaniciIslemleri(veritabani["kullanici"])
 
-def kayit_ol():
-    isim = input("İsminizi giriniz: ")
-    yas = int(input("Yaşınızı giriniz: "))
-    eposta = input("E-postanızı giriniz: ")
-    sifre = input("Şifrenizi giriniz: ")
-    kullanici = {int(time.time()): {"isim": isim, "yas": yas, "eposta": eposta, "sifre": sifre}}
-    with open(veritabani["kullanici"], 'a') as ekle:
-        try:
-            ekle.write(str(kullanici) + "\n")
-            print("Başarıyla kayıt oldunuz! Kullanıcı paneline yönlendiriliyorsunuz...")
-            kullanici_paneli(list(map(int, [k for k in kullanici]))[0])
-        except:
-            print("Kullanıcı oluşturulamadı! Lütfen tekrar deneyiniz.")
 
 
 def odunc_al(kullanici_id):
@@ -117,16 +104,6 @@ def kullanici_paneli(kullanici_id):
             print("Lütfen geçerli bir menü numarası giriniz.")
 
 
-def admin_sifre_kontrol():
-    while True:
-        girilen = input("Lütfen şifre giriniz: ")
-        if girilen == veritabani["adminSifre"]:
-            print("Admin paneline başarıyla giriş yaptınız.\n")
-            if OBJ_admin_paneli.admin_menu_ana_ekran() == 0:
-                ana_ekran()
-            break
-        else:
-            print("Yanlış şifre!\n")
 
 
 def ana_ekran():
@@ -137,7 +114,7 @@ def ana_ekran():
     giriş = int(input("Gitmek istediğiniz seçeneği giriniz: "))
 
     if giriş == 1:
-        kayit_ol()
+        OBJ_kullanici.kullanici_kayit()
     elif giriş == 2:
         if not OBJ_kullanici.menu_kullanici_giris():
             print("Yanlış kullanıcı adı veya şifre! Lütfen tekrar deneyiniz!")
@@ -145,7 +122,14 @@ def ana_ekran():
         else:
             OBJ_kullanici.menu_kullanici_giris()
     elif giriş == 3:
-        admin_sifre_kontrol()
+        girilen = input("Lütfen şifre giriniz: ")
+        if girilen == veritabani["adminSifre"]:
+            print("Admin paneline başarıyla giriş yaptınız.\n")
+            if OBJ_admin_paneli.admin_menu_ana_ekran() == 0:
+                ana_ekran()
+        else:
+            print("Yanlış şifre girdiniz, lütfen tekrar deneyiniz!\n")
+            ana_ekran()
 
 
 def main():

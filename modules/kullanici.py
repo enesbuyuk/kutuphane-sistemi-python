@@ -1,4 +1,5 @@
 import ast
+import time
 from modules.dosya import DosyaIslemleri
 
 class KullaniciIslemleri(DosyaIslemleri):
@@ -6,10 +7,25 @@ class KullaniciIslemleri(DosyaIslemleri):
         super().__init__(dosya)
 
     def menu_kullanici_giris(self):
-        print("############################### Giriş Yap ###############################\n")
+        print("############################### Kullanıcı Giriş Yap ###############################\n")
         eposta = input("Lütfen e-posta adresinizi giriniz: ")
         sifre = input("Lütfen şifrenizi giriniz: ")
         return self.kullanici_kontrol(eposta, sifre)
+
+    def kullanici_kayit(self):
+        print("############################### Kullanıcı Kayıt Ol ###############################\n")
+        isim = input("İsminizi giriniz: ")
+        yas = int(input("Yaşınızı giriniz: "))
+        eposta = input("E-postanızı giriniz: ")
+        sifre = input("Şifrenizi giriniz: ")
+        kullanici = {"id": str(int(time.time())), "isim": isim, "yas": yas, "eposta": eposta, "sifre": sifre}
+        with open(self.dosya, 'a') as ekle:
+            try:
+                ekle.write(str(kullanici) + "\n")
+                print("Başarıyla kayıt oldunuz! Kullanıcı paneline yönlendiriliyorsunuz...")
+                kullanici_paneli(list(map(int, [k for k in kullanici]))[0])
+            except:
+                print("Kullanıcı oluşturulamadı! Lütfen tekrar deneyiniz.")
 
     def kullanici_kontrol(self, eposta, sifre):
         with open(self.dosya, "r") as kullanicilar:
