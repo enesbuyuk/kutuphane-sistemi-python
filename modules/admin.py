@@ -6,22 +6,24 @@ from modules.kullanici import KullaniciIslemleri
 
 
 class AdminPaneli(KullaniciIslemleri):
-    def __init__(self,dosya_kutuphane,dosya_kullanici):
-        self.dosya_kutuphane = dosya_kutuphane
-        KullaniciIslemleri.__init__(self, dosya_kullanici)
+    def __init__(self, dosya):
+        self.dosya = dosya
+        KullaniciIslemleri.__init__(self, dosya)
+
     def admin_menu_kitap_liste(self):
         print("############################### Admin Paneli: Kitap Listesi ###############################\n")
-        with open(self.dosya_kutuphane, "r") as kitaplar:
+        with open(self.dosya["kutuphane"], "r") as kitaplar:
             for line in kitaplar:
                 kitap_dict = dict(ast.literal_eval(line))
                 odunc_mesaj = "Bu kitabı ödünç alabilirsiniz."
-                if kitap_dict["odunc"] == 0:
-                    odunc_mesaj = f"""Bu kitap şu an başkası tarafından ödünç alınmıştır.\nTahmini kalan teslim süresi: {kitap_dict["kalanSure"]} gün"""
-                    print(f"""Kitap benzersiz ID: {kitap_dict["id"]}
-        Kitap adı: {kitap_dict["isim"]}
-        Kitap basım yılı: {kitap_dict["yil"]}
-        Kitap yazarı: {kitap_dict["yazar"]}
-        {odunc_mesaj}\n""")
+                if kitap_dict["odunc"]:
+                    odunc_mesaj = "Bu kitap şu an başkası tarafından ödünç alınmıştır.\nTahmini kalan teslim süresi: " + \
+                                  kitap_dict["kalanSure"] + " gün"
+                print(f"""Kitap benzersiz ID: {kitap_dict["id"]}
+Kitap adı: {kitap_dict["isim"]}
+Kitap basım yılı: {kitap_dict["yil"]}
+Kitap yazarı: {kitap_dict["yazar"]}
+{odunc_mesaj}\n""")
 
     def admin_menu_kitap_ekle(self):
         print("############################### Admin Paneli: Kitap Ekle ###############################\n")
@@ -45,16 +47,23 @@ class AdminPaneli(KullaniciIslemleri):
         print("############################### Admin Paneli: Kitap Çıkar ###############################\n")
         cikarilacak = input(
             "Kütüphaneden kaldırmak istediğiniz kitabın tam adını giriniz (büyük/küçük harf önemsiz): ").lower()
-        with open(self.dosya_kutuphane, 'w+') as x:
-            for satir in x:
-                satir_dict = dict(ast.literal_eval(satir))
-                if cikarilacak == satir_dict["isim"].lower():
-                    print("Kitap başarıyla kütüphaneden çıkarıldı.")
-                    x.write(satir)
-                    return True
-                    break
-        return False
+        bulundu = False
+        yeni_icerik = []
+        with open(self.dosya["kutuphane"], 'r') as file:
+            lines = file.readlines()
+        with open(self.dosya["kutuphane"], 'w') as file:
+            for satir in lines:
+                satir_dict = ast.literal_eval(satir)
+                if cikarilacak != satir_dict["isim"].lower():
+                    yeni_icerik.append(satir)
+                else:
+                    bulundu = True
 
+            if bulundu:
+                file.writelines(yeni_icerik)
+                return True
+            else:
+                return False
     def admin_menu_ana_ekran(self):
         print("""############# Admin Paneline Hoş Geldiniz! #############
         1) Kütüphanedeki kitapları listele.

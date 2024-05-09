@@ -1,6 +1,7 @@
 import time
 import ast
 from modules.admin import AdminPaneli
+from modules.dosya import DosyaIslemleri
 from modules.kullanici import KullaniciIslemleri
 from core.db.db import veritabani
 
@@ -23,7 +24,7 @@ def kitap_liste(dosya):
         for line in kitaplar:
             kitap_dict = dict(ast.literal_eval(line))
             odunc_mesaj = "Bu kitabı ödünç alabilirsiniz."
-            if kitap_dict["odunc"] == 0:
+            if kitap_dict["odunc"]:
                 odunc_mesaj = f"""Bu kitap şu an başkası tarafından ödünç alınmıştır.\nTahmini kalan teslim süresi: {kitap_dict["kalanSure"]} gün"""
                 print(f"""Kitap benzersiz ID: {kitap_dict["id"]}
 Kitap adı: {kitap_dict["isim"]}
@@ -50,58 +51,13 @@ def kitap_detay(kitap_id, kitap_liste):
 
 kütüphaneKayıt = {}
 
-OBJ_admin_paneli = AdminPaneli(veritabani["kutuphane"],veritabani["kullanici"])
-OBJ_kullanici = KullaniciIslemleri(veritabani["kullanici"])
-
-
-
-def odunc_al(kullanici_id):
-    aranacak_kitap = input("Ödünç alacağınız kitabı aratın (tam ismini giriniz): ").lower()
-    bulundu = 0
-    for x in kitap_listesi.values():
-        if bulundu == 1:
-            break
-        if x["isim"] == aranacak_kitap:
-            bulundu = 1
-            if x["odunc"] == 0:
-                eh = input(f'Alacağınız kitap \"{x["isim"]}\" ise E değilse H tuşuna basınız: ')
-                if eh == "E":
-                    x["odunc"] = kullanici_id
-                    print(f'{x["isim"]} isimli kitabı başarıyla ödünç aldınız.')
-                else:
-                    print(f'{x["isim"]}  isimli kitabı ödünç alamaktan vazgeçtiniz.')
-            else:
-                print(f"""Maalesef alacağınız kitap daha önce ödünç alınmıştır.
-            	Ödünç alınan kişi tarafından teslim edildikten sonra ödünç alabilirsiniz.""")
-
-    if bulundu == 0:
-        print("Aradığınız kitap bulanamamaktadır!")
+OBJ_admin_paneli = AdminPaneli(veritabani)
+OBJ_kullanici = KullaniciIslemleri(veritabani)
 
 
 def teslim_et(kitap_id, kullanici_id):
     print("teslim edildi")
 
-
-def kullanici_paneli(kullanici_id):
-    while True:
-        menu_secenek = input("""\n####################### Kullanıcı Paneli! #######################\n
-        1) Kitap ödünç al.
-        2) Ödünç alınan kitabı teslim et
-        3) Profil bilgilerini düzenle
-        4) Programı kapat  
-
-		Lütfen gitmek istediğiniz menüyü seçiniz: 
-		""")
-        if int(menu_secenek) == 1:
-            odunc_al(kullanici_id)
-        elif int(menu_secenek) == 2:
-            teslim_et(kullanici_id)
-        elif int(menu_secenek) == 3:
-            teslim_et(kullanici_id)
-        elif int(menu_secenek) == 4:
-            break
-        else:
-            print("Lütfen geçerli bir menü numarası giriniz.")
 
 
 
@@ -118,7 +74,7 @@ def ana_ekran():
     elif giriş == 2:
         if not OBJ_kullanici.menu_kullanici_giris():
             print("Yanlış kullanıcı adı veya şifre! Lütfen tekrar deneyiniz!")
-            kullanici_paneli()
+            OBJ_kullanici.menu_ana_ekran()
         else:
             OBJ_kullanici.menu_kullanici_giris()
     elif giriş == 3:
