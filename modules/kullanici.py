@@ -72,11 +72,11 @@ class KullaniciIslemleri(DosyaIslemleri):
         aranacak_kitap = input("Ödünç alacağınız kitabın tam ismini giriniz: ").lower()
         kitap_bulundu = False
 
-        with open(self.dosya["kutuphane"], 'r') as file:
-            lines = file.readlines()
+        with open(self.dosya["kutuphane"], 'r') as x:
+            satirlar = x.readlines()
 
-        with open(self.dosya["kutuphane"], 'w') as file:
-            for satir in lines:
+        with open(self.dosya["kutuphane"], 'w') as x:
+            for satir in satirlar:
                 satir_dict = ast.literal_eval(satir)
                 if aranacak_kitap == satir_dict["isim"].lower():
                     if satir_dict["odunc"] == 0:
@@ -84,13 +84,13 @@ class KullaniciIslemleri(DosyaIslemleri):
                         satir_dict["kalanSure"] = 15
                         kitap_bulundu = True
                         yeni_satir = str(satir_dict) + "\n"
-                        file.write(yeni_satir)
+                        x.write(yeni_satir)
                         print("Kitap başarıyla ödünç alındı.")
                     else:
                         print("Bu kitap daha önce ödünç alınmıştır.")
                 else:
                     yeni_icerik = satir
-                    file.write(yeni_icerik)
+                    x.write(yeni_icerik)
 
         if not kitap_bulundu:
             print("Aradığınız kitap kütüphanemizde bulunamadı. Lütfen tekrar deneyiniz.")

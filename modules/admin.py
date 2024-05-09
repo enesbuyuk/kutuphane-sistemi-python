@@ -65,38 +65,39 @@ Kitap yazarı: {kitap_dict["yazar"]}
             else:
                 return False
     def admin_menu_ana_ekran(self):
-        print("""############# Admin Paneline Hoş Geldiniz! #############
-        1) Kütüphanedeki kitapları listele.
-        2) Kütüphaneye kitap ekle.
-        3) Kütüphaneden kitap çıkar.
-        4) Kullanıcıları listele.
-        0) Admin panelinden çıkış yap (Ana menüye döner).\n""")
-        secim = input("LÜtfen yapmak istediğiniz menüyü seçiniz: ")
-        print("\n")
-        if secim == "1":
-            if self.admin_menu_kitap_liste():
-                print("Kitaplar başarıyla listelendi.")
-                self.admin_menu_ana_ekran()
+        while True:
+            print("""############# Admin Paneline Hoş Geldiniz! #############
+            1) Kütüphanedeki kitapları listele.
+            2) Kütüphaneye kitap ekle.
+            3) Kütüphaneden kitap çıkar.
+            4) Kullanıcıları listele.
+            0) Admin panelinden çıkış yap (Ana menüye döner).\n""")
+            secim = input("LÜtfen yapmak istediğiniz menüyü seçiniz: ")
+            print("\n")
+            if secim == "1":
+                if self.admin_menu_kitap_liste():
+                    print("Kitaplar başarıyla listelendi.")
+                    self.admin_menu_ana_ekran()
+                else:
+                    print("Kitap listesi çekilirken bir hata oluştu.")
+                    self.admin_menu_kitap_liste()
+            elif secim == "2":
+                if self.admin_menu_kitap_ekle():
+                    print("Kitap başarıyla eklendi.")
+                    self.admin_menu_ana_ekran()
+                else:
+                    print("Kitap eklenirken bir hata oluştu.")
+                    self.admin_menu_kitap_ekle()
+            elif secim == "3":
+                if self.admin_menu_kitap_cikar():
+                    print("Kitap başarıyla çıkarıldı.")
+                    self.admin_menu_ana_ekran()
+                else:
+                    print("Kitap çıkartılırken bir hata oluştu.")
+                    self.admin_menu_kitap_cikar()
+            elif secim == "4":
+                self.kullanici_liste()
+            elif secim == "0":
+                return False
             else:
-                print("Kitap listesi çekilirken bir hata oluştu.")
-                self.admin_menu_kitap_liste()
-        elif secim == "2":
-            if self.admin_menu_kitap_ekle():
-                print("Kitap başarıyla eklendi.")
-                self.admin_menu_ana_ekran()
-            else:
-                print("Kitap eklenirken bir hata oluştu.")
-                self.admin_menu_kitap_ekle()
-        elif secim == "3":
-            if self.admin_menu_kitap_cikar():
-                print("Kitap başarıyla çıkarıldı.")
-                self.admin_menu_ana_ekran()
-            else:
-                print("Kitap çıkartılırken bir hata oluştu.")
-                self.admin_menu_kitap_cikar()
-        elif secim == "4":
-            self.kullanici_liste()
-        elif secim == "0":
-            return 0
-        else:
-            print(veritabani["hataliSecim"])
+                print(veritabani["hataliSecim"])

@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f0688546-2f4c-4ec2-b53f-abcfbeeea469" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/modules/kutuphane.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/db/kutuphane.txt" beforeDir="false" afterPath="$PROJECT_DIR$/core/db/kutuphane.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/kullanici.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/kullanici.py" afterDir="false" />
     </list>
@@ -87,7 +88,7 @@
       <workItem from="1715085475442" duration="4028000" />
       <workItem from="1715089530593" duration="4223000" />
       <workItem from="1715108599022" duration="15574000" />
-      <workItem from="1715245873589" duration="4550000" />
+      <workItem from="1715245873589" duration="5337000" />
     </task>
     <servers />
   </component>
@@ -95,6 +96,6 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/pythonProject3$main.coverage" NAME="main Coverage Results" MODIFIED="1715250413232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/pythonProject3$main.coverage" NAME="main Coverage Results" MODIFIED="1715251128460" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
