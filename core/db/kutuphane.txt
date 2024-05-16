@@ -1,0 +1,3 @@
+{'id': '1715847323', 'isim': 'dava', 'yil': 1900, 'yazar': 'franz kafka', 'odunc': '1715850144', 'oduncAlmaTarihi': 1715851610, 'kalanSure': 0}
+{'id': '1715850014', 'isim': 'm�h�rlenmi� zaman', 'yil': 1900, 'yazar': 'andrei tarkovski', 'odunc': 0, 'oduncAlmaTarihi': 1715850014}
+{'id': '1715851334', 'isim': 'cahil filozof', 'yil': 1900, 'yazar': 'voltaire', 'odunc': 0, 'oduncAlmaTarihi': 1715851334}

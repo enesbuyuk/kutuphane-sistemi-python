@@ -1,1 +1,2 @@
 {'id': '1715676939', 'isim': 'enes', 'yas': 1, 'eposta': '1', 'sifre': '1'}
+{'id': '1715850144', 'isim': 'Yusuf', 'yas': 19, 'eposta': 'yusuf@gmail.com', 'sifre': 'yusuf'}

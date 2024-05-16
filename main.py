@@ -17,9 +17,9 @@ from modules.kutuphane import Kutuphane
 
 
 def main():
-    OBJ_kutuphane = Kutuphane(veritabani)
-    OBJ_kutuphane.ana_ekran()
+    OBJ_kutuphane = Kutuphane(veritabani) # Kutuphane class'ından bir obje oluşturuldu.
+    OBJ_kutuphane.ana_ekran() # Oluşturulan obje üzerinden ana ekran fonksiyonu çağrıldı.
 
 
 if __name__ == "__main__":
-    main()
+    main() # main fonksiyonu çağrıldı.

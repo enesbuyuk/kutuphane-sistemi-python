@@ -42,14 +42,14 @@ Lütfen gitmek istediğiniz menüyü seçiniz: """)
             else:
                 print("Lütfen geçerli bir menü numarası giriniz.")
 
-    def menu_kullanici_giris(self):
-        print("############################### Kullanıcı Giriş Yap ###############################\n")
+    def menu_kullanici_giris(self): # Kullanıcı giriş işlemi
+        menu_baslik("Kullanıcı Giriş Yap")
         eposta = input("Lütfen e-posta adresinizi giriniz: ")
         sifre = input("Lütfen şifrenizi giriniz: ")
         return self.kullanici_kontrol(eposta, sifre)
 
-    def kullanici_kayit(self):
-        print("############################### Kullanıcı Kayıt Ol ###############################\n")
+    def kullanici_kayit(self): # Kullanıcı kayıt işlemi
+        menu_baslik("Kullanıcı Kayıt Ol")
         isim = input("İsminizi giriniz: ")
         yas = int(input("Yaşınızı giriniz: "))
         eposta = input("E-postanızı giriniz: ")
@@ -64,7 +64,7 @@ Lütfen gitmek istediğiniz menüyü seçiniz: """)
             except:
                 print("Kullanıcı oluşturulamadı! Lütfen tekrar deneyiniz.")
 
-    def kullanici_kontrol(self, eposta, sifre):
+    def kullanici_kontrol(self, eposta, sifre): # Kullanıcı kontrol işlemi
         with open(self.dosya["kullanici"], "r") as kullanicilar:
             for line in kullanicilar:
                 kullanici_dict = dict(ast.literal_eval(line))
@@ -74,14 +74,14 @@ Lütfen gitmek istediğiniz menüyü seçiniz: """)
                     return kullanici_dict
         return False
 
-    def kullanici_liste(self):
+    def kullanici_liste(self): # Kullanıcı listeleme işlemi
         with open(self.dosya["kullanici"], "r") as kullanicilar:
             for line in kullanicilar:
                 kullanici_dict = dict(ast.literal_eval(line))
                 print(
                     f"ID:{kullanici_dict['id']}, İsim: {kullanici_dict['isim']}, Yaş: {kullanici_dict['yas']}, E-posta: {kullanici_dict['eposta']}")
 
-    def menu_kitap_liste(self):
+    def menu_kitap_liste(self): # Kitap listeleme işlemi
         menu_baslik("Kullanıcı Paneli: Kitap Listesi")
         if self.Kitaplik.kitap_liste():
             print("Kitaplar başarıyla listelendi.")
@@ -89,14 +89,16 @@ Lütfen gitmek istediğiniz menüyü seçiniz: """)
             print("Kütüphanemizde kitap bulunmamaktadır.")
         self.menu_ana_ekran()
 
-    def menu_odunc_al(self):
+    def menu_odunc_al(self): # Ödünç alma işlemi
         print("############################### Kullanıcı Paneli: Ödünç Al ###############################\n")
         aranacak_kitap = input("Ödünç alacağınız kitabın tam ismini giriniz: ").lower()
         kitap_bulundu = False
 
+        # Kütüphanedeki kitapları oku
         with open(self.dosya["kutuphane"], 'r') as x:
             satirlar = x.readlines()
 
+        # Kütüphanedeki kitapları yaz
         with open(self.dosya["kutuphane"], 'w') as x:
             for satir in satirlar:
                 satir_dict = ast.literal_eval(satir)
@@ -117,14 +119,16 @@ Lütfen gitmek istediğiniz menüyü seçiniz: """)
         if not kitap_bulundu:
             print("Aradığınız kitap kütüphanemizde bulunamadı. Lütfen tekrar deneyiniz.")
 
-    def teslim_et(self):
-        print("############################### Kullanıcı Paneli: Teslim Et ###############################\n")
+    def teslim_et(self): # Teslim etme işlemi
+        menu_baslik("Kullanıcı Paneli: Teslim Et")
         aranacak_kitap = input("Ödünç alacağınız kitabın tam ismini giriniz: ").lower()
         kitap_bulundu = False
 
+        # Kütüphanedeki kitapları oku
         with open(self.dosya['kutuphane'], 'r') as x:
             satirlar = x.readlines()
 
+        # Kütüphanedeki kitapları yaz
         with open(self.dosya['kutuphane'], 'w') as x:
             for satir in satirlar:
                 satir_dict = ast.literal_eval(satir)
@@ -144,9 +148,12 @@ Lütfen gitmek istediğiniz menüyü seçiniz: """)
 
     def menu_teslim_durumu(self):
         menu_baslik("Kullanıcı Paneli: Teslim Durumu")
+
+        # Kütüphanedeki kitapları oku
         with open(self.dosya["kutuphane"], 'r') as x:
             satirlar = x.readlines()
 
+        # Kütüphanedeki kitapları yaz
         with open(self.dosya["kutuphane"], 'w') as x:
             for satir in satirlar:
                 satir_dict = ast.literal_eval(satir)
@@ -156,7 +163,7 @@ Lütfen gitmek istediğiniz menüyü seçiniz: """)
                         print(f"(*){satir_dict['isim']} adlı kitabın teslim süresi ({cevap[1]} gün) dolmuştur. Lütfen teslim ediniz.")
                         print(f"\tCeza bedeli: {-cevap[1]} TL\n")
                     else:
-                        print("Teslim etmeniz gereken kitap bulunmamaktadır.")
+                        print("Bugün itibarıyla teslim etmeniz gereken kitap bulunmamaktadır.")
                 x.write(satir)
             if not len(satirlar):
                 print("Teslim edilecek kitap bulunamadı.")

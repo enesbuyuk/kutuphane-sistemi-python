@@ -8,14 +8,14 @@ from modules.static import menu_baslik
 from datetime import datetime
 
 
-class AdminPaneli(KullaniciIslemleri):
-    def __init__(self, dosya):
+class AdminPaneli(KullaniciIslemleri): # AdminPaneli class is inherited from KullaniciIslemleri class
+    def __init__(self, dosya): # Yapıcı fonksiyon
         self.dosya = dosya
         KullaniciIslemleri.__init__(self, dosya)
         self.DosyaIslemleri = DosyaIslemleri(self.dosya)
         self.Kitaplik = Kitaplik(self.dosya)
 
-    def admin_menu_kitap_liste(self):
+    def admin_menu_kitap_liste(self): # Kitap listesini gösteren fonksiyon
         menu_baslik("Admin Paneli: Kitap Listesi")
         if self.Kitaplik.kitap_liste():
             print("Kitaplar başarıyla listelendi.")
@@ -23,7 +23,7 @@ class AdminPaneli(KullaniciIslemleri):
             print("Kütüphanemizde kitap bulunmamaktadır.")
         self.admin_menu_ana_ekran()
 
-    def admin_menu_kitap_ekle(self):
+    def admin_menu_kitap_ekle(self): # Kitap eklemek için kullanılan fonksiyon
         menu_baslik("Admin Paneli: Kitap Ekle")
         adi = input("Lütfen kitabın adini giriniz: ")
         yil = input("Lütfen kitabın yayım yılını giriniz: ")
@@ -42,8 +42,8 @@ class AdminPaneli(KullaniciIslemleri):
         else:
             return False
 
-    def admin_menu_kitap_cikar(self):
-        print("############################### Admin Paneli: Kitap Çıkar ###############################\n")
+    def admin_menu_kitap_cikar(self): # Kitap çıkarmak için kullanılan fonksiyon
+        menu_baslik("Admin Paneli: Kitap Çıkar")
         cikarilacak = input(
             "Kütüphaneden kaldırmak istediğiniz kitabın tam adını giriniz (büyük/küçük harf önemsiz): ").lower()
         bulundu = False
@@ -64,11 +64,11 @@ class AdminPaneli(KullaniciIslemleri):
             else:
                 return False
 
-    def admin_menu_kullanici_liste(self):
-        print("############################### Admin Paneli: Kullanıcı Listesi ###############################")
+    def admin_menu_kullanici_liste(self): # Kullanıcı listesini gösteren fonksiyon
+        menu_baslik("Admin Paneli: Kullanıcı Listesi")
         self.kullanici_liste()
 
-    def admin_menu_ana_ekran(self):
+    def admin_menu_ana_ekran(self): # Admin paneli ana ekranı
         while True:
             print("""\n\n\n############################### Admin Paneli: Ana Ekran ###############################
             1) Kütüphanedeki kitapları listele.
@@ -97,6 +97,6 @@ class AdminPaneli(KullaniciIslemleri):
             elif secim == "4":
                 self.admin_menu_kullanici_liste()
             elif secim == "0":
-                print("degistir")
+                break
             else:
                 print(veritabani["hataliSecim"])
